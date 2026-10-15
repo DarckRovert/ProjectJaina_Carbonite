@@ -14,7 +14,7 @@ Ficha técnica oficial de registro en la infraestructura multi-addon de **Projec
 | **Clasificación** | Comunitario / Hardened |
 | **Licencia Formal** | Other / EULA |
 | **Repositorio GitHub** | [ProjectJaina_Carbonite](https://github.com/DarckRovert/ProjectJaina_Carbonite) |
-| **Entorno de Juego** | World of Warcraft 3.3.5a (Build 12340) / AzerothCore |
+| **Entorno de Juego** | World of Warcraft 3.3.5a (Build 12340) / JainaCore |
 
 ---
 
@@ -60,7 +60,7 @@ Ficha técnica oficial de registro en la infraestructura multi-addon de **Projec
 | 04 | [ProjectJaina_Companion](https://github.com/DarckRovert/ProjectJaina_Companion) | `ProjectJaina_Companion` | 1.0.3 | MIT | Hub social ligero, cross-faction (/comerciar, /invitar) y telemetría de grupo. |
 | 05 | [ProjectJaina_DragonflightUI](https://github.com/DarckRovert/ProjectJaina_DragonflightUI) | `cDF` | 1.0.0 | MIT / BSD | Re-implementación visual moderna estilo Dragonflight 10.x para cliente 3.3.5a. |
 | 06 | [ProjectJaina_GameModes](https://github.com/DarckRovert/ProjectJaina_GameModes) | `ProjectJaina_GameModes` | 1.0.0 | MIT | Selector cinemático de modos (Normal, Hardcore, Ironman) con verificación Eluna. |
-| 07 | [ProjectJaina_GMGenie](https://github.com/DarckRovert/ProjectJaina_GMGenie) | `GMGenie` | 1.3.1 | GPL-3.0 | Suite administrativa integral para Game Masters adaptada a AzerothCore. |
+| 07 | [ProjectJaina_GMGenie](https://github.com/DarckRovert/ProjectJaina_GMGenie) | `GMGenie` | 1.3.1 | GPL-3.0 | Suite administrativa integral para Game Masters adaptada a JainaCore. |
 | 08 | [ProjectJaina_IntiObjGPS](https://github.com/DarckRovert/ProjectJaina_IntiObjGPS) | `IntiObjGPS` | 1.0.0 | MIT | Editor por lotes de coordenadas GPS de GameObjects para Staff y constructores. |
 | 09 | [ProjectJaina_LoreHUD](https://github.com/DarckRovert/ProjectJaina_LoreHUD) | `LoreHUD` | 1.0.0 | MIT | Diálogos cinemáticos inmersivos y subtítulos estilizados para misiones y Lore. |
 | 10 | [ProjectJaina_PrideTrace](https://github.com/DarckRovert/ProjectJaina_PrideTrace) | `ProjectJaina_PrideTrace` | 1.0.0 | MIT | Rastreador de combate y telemetría de eventos de orgullo en tiempo real. |

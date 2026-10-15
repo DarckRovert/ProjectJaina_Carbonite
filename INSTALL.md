@@ -5,7 +5,7 @@
 
 ## 📋 Requisitos Previos
 - **Cliente:** World of Warcraft 3.3.5a (Build 12340), en español (`esES`) o inglés (`enUS`).
-- **Servidor:** AzerothCore con Eluna habilitado (**Project Jaina — Theramore**).
+- **Servidor:** JainaCore con Eluna habilitado (**Project Jaina — Theramore**).
 
 ---
 
