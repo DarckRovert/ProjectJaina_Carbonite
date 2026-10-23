@@ -1,6 +1,6 @@
 # ❄️ Project JAIna — Carbonite (v3.34 Hardened HD Edition)
 
-**Versión:** 3.34-WP (WotLK Hardened Edition)  
+**Versión:** 3.34-Jaina (WotLK Hardened Edition)  
 **Autor Original:** Carbon Based Creations, LLC  
 **Mantenimiento & Refactorización:** DarckRovert (Ingame: `Elnazzareno`) & Project JAIna Staff  
 **Servidor Destino:** [Project JAIna](https://darckrovert.github.io/ProjectJaina_Web/) — Theramore  
@@ -11,7 +11,7 @@
 
 [![WoW Client](https://img.shields.io/badge/WoW%20Client-3.3.5a%20(Build%2012340)-blue.svg)](https://darckrovert.github.io/ProjectJaina_Web/)
 [![Servidor](https://img.shields.io/badge/Servidor-Project%20JAIna-00ccff.svg)](https://darckrovert.github.io/ProjectJaina_Web/)
-[![Version](https://img.shields.io/badge/version-3.34--WP-brightgreen.svg)](https://github.com/DarckRovert/ProjectJaina_Carbonite/releases)
+[![Version](https://img.shields.io/badge/version-3.34--Jaina-brightgreen.svg)](https://github.com/DarckRovert/ProjectJaina_Carbonite/releases)
 [![Build Status](https://img.shields.io/badge/Status-Hardened%20Production-success.svg)](https://github.com/DarckRovert/ProjectJaina_Carbonite)
 [![License: EULA / Proprietary](https://img.shields.io/badge/License-EULA%20%2F%20Proprietary-lightgrey.svg)](LICENSE)
 
@@ -25,7 +25,7 @@ Esta bifurcación soluciona fallos históricos de estabilidad que provocaban mil
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                   MEJORAS ARQUITECTÓNICAS DE WOW PERÚ                  │
+│                   MEJORAS ARQUITECTÓNICAS DE PROJECT JAINA                  │
 ├────────────────────────┬──────────────────────┬────────────────────────┤
 │ 🛡️ RESILIENCIA RUNTIME │ 🎨 TEMA OSCURO NATIVO │ 🗺️ MAPA SATELITAL HD   │
 │ Eliminados 15,000+     │ Corregido el bug de  │ Zoom continuo, rutas   │

@@ -1,7 +1,7 @@
 # 🔌 Especificación Técnica y API — ProjectJaina_Carbonite
 
 [![GitHub](https://img.shields.io/badge/GitHub-DarckRovert%2FProjectJaina_Carbonite-black?logo=github)](https://github.com/DarckRovert/ProjectJaina_Carbonite)
-[![Ecosistema](https://img.shields.io/badge/Ecosistema-WoW%20Per%C3%BA%203.3.5a-gold.svg)](https://darckrovert.github.io/ProjectJaina_Web/)
+[![Ecosistema](https://img.shields.io/badge/Ecosistema-Project%20Jaina%203.3.5a-gold.svg)](https://darckrovert.github.io/ProjectJaina_Web/)
 
 ## 📌 Resumen Arquitectónico
 Suite unificada hardened de Carbonite (v3.34) con cartografía HD, navegación satelital, rastreo de misiones, base de datos de nodos de recolección y optimización contra bucles nil.
