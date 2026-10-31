@@ -11,5 +11,6 @@
 ## SavedVariablesPerCharacter: NxCData
 
 Localization.lua
+Carbonite_SilenceLeak.lua
 Carbonite.lua
 Carbonite.xml

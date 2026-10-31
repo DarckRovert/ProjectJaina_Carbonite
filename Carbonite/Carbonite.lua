@@ -7774,14 +7774,15 @@ function Nx.Com:OnU(ela)
 local Nx=Nx
 local bgm=Nx.IBG
 local taN=UnitName("target")
-if UnitIsPlayer("target") and UnitIsEnemy("player","target") then
+local pFac=UnitFactionGroup("player")
+if UnitIsPlayer("target") and UnitIsEnemy("player","target") and (UnitFactionGroup("target")~=pFac) then
 local lvl=UnitLevel("target") or 0
 if not bgm then
 self.Pun[taN]=lvl
 end
 Nx.Soc:ALP(taN,nil,lvl,UnitClass("target"))
 end
-if UnitIsPlayer("mouseover") and UnitIsEnemy("player","mouseover") then
+if UnitIsPlayer("mouseover") and UnitIsEnemy("player","mouseover") and (UnitFactionGroup("mouseover")~=pFac) then
 local moN=UnitName("mouseover")
 if moN~=taN then
 local lvl=UnitLevel("mouseover") or 0
@@ -11957,7 +11958,9 @@ end
 end
 end
 local pun1=self:GeP1(nam,plN1,rMI,x,y)
-if not pun1.Tim1 and not Nx.IBG and self.GOp["PunkNewLocalWarnChat"] then
+local pFac=UnitFactionGroup("player")
+local isSameFac=(nam==UnitName("target") and UnitFactionGroup("target")==pFac) or (nam==UnitName("mouseover") and UnitFactionGroup("mouseover")==pFac)
+if not pun1.Tim1 and not Nx.IBG and self.GOp["PunkNewLocalWarnChat"] and not isSameFac then
 if not Nx.InS1 or self.GOp["PunkShowInSafeArea"] then
 local typ=self.Pun[nam] and "|cffff4040Punk" or "Enemy"
 Nx.prt("%s %s detected near you",typ,nam)
