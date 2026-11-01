@@ -17,7 +17,7 @@
 [![Servidor](https://img.shields.io/badge/Servidor-Project%20JAIna-00ccff.svg)](https://darckrovert.github.io/ProjectJaina_Web/)
 [![Version](https://img.shields.io/badge/version-3.34--Jaina-brightgreen.svg)](https://github.com/DarckRovert/ProjectJaina_Carbonite/releases)
 [![Build Status](https://img.shields.io/badge/Status-Hardened%20Production-success.svg)](https://github.com/DarckRovert/ProjectJaina_Carbonite)
-[![License: EULA / Proprietary](https://img.shields.io/badge/License-EULA%20%2F%20Proprietary-lightgrey.svg)](LICENSE)
+[![License: EULA / Proprietary](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
 
 ---
 
