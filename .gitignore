@@ -12,3 +12,7 @@ Desktop.ini
 # IDE configs
 .vscode/
 .idea/
+
+# Python test cache
+__pycache__/
+*.py[cod]
