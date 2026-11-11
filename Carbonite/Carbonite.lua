@@ -13903,6 +13903,7 @@ end
 m:IIT("Kill",nil,"Interface\\TargetingFrame\\UI-TargetingFrame-Skull",10,10)
 m:IIT("Death",nil,"Interface\\TargetingFrame\\UI-TargetingFrame-Seal",10,10)
 local ico
+if self.Sor then
 for k,ite in ipairs(self.Sor) do
 if ite.NXMapId==maI then
 if ite["T"]=="K" then
@@ -13911,6 +13912,7 @@ m:SIT(ico,ite.NXName)
 elseif ite["T"]=="D" then
 ico=m:AIP("Death",ite.NXX,ite.NXY)
 m:SIT(ico,ite.NXName)
+end
 end
 end
 end
@@ -20505,6 +20507,10 @@ Nx.prt("Unknown ore %s",nam)
 end
 end
 function Nx.Soc:UpI(map)
+if not self.GOp then
+self.GOp=Nx:GGO() or {}
+end
+if not map or not self.GOp then return end
 if Nx.Tic % 120==4 then
 self:CaP()
 end
@@ -20512,24 +20518,26 @@ local math=math
 local alt=IsAltKeyDown()
 local tm=GetTime()
 local iTN=Nx.MITN
-local pun=self.Pun
-local puA=self.PuA
-local siz=self.GOp["PunkAreaSize"]*map.ScD
-local siM=self.GOp["PunkMAreaSize"]*map.ScD
-local arR,arG,arB=Nx.U_23(self.GOp["PunkAreaColor"])
-local icR,icG,icB,icA=Nx.U_23(self.GOp["PunkIconColor"])
-local aRM,aGM,aBM=Nx.U_23(self.GOp["PunkMAreaColor"])
-local sIN=self.GOp["PunkShowInNorthrend"]
-local sISA=self.GOp["PunkShowInSafeArea"]
+local pun=self.Pun or {}
+local puA=self.PuA or {}
+local gop=self.GOp
+local scd=map.ScD or 1
+local siz=(gop["PunkAreaSize"] or 100)*scd
+local siM=(gop["PunkMAreaSize"] or 100)*scd
+local arR,arG,arB=Nx.U_23(gop["PunkAreaColor"] or "ffffffff")
+local icR,icG,icB,icA=Nx.U_23(gop["PunkIconColor"] or "ffffffff")
+local aRM,aGM,aBM=Nx.U_23(gop["PunkMAreaColor"] or "ffffffff")
+local sIN=gop["PunkShowInNorthrend"]
+local sISA=gop["PunkShowInSafeArea"]
 local dec=.24
 local deM1=.21
 local iBG=Nx.IBG
 if iBG then
-if not self.GOp["PunkShowInBG"] or Nx.Fre then
+if not gop["PunkShowInBG"] or Nx.Fre then
 return
 end
-siz=self.GOp["PunkBGAreaSize"]*map.ScD
-arR,arG,arB=Nx.U_23(self.GOp["PunkBGAreaColor"])
+siz=(gop["PunkBGAreaSize"] or 100)*scd
+arR,arG,arB=Nx.U_23(gop["PunkBGAreaColor"] or "ffffffff")
 local dec=2
 local deM1=.25
 end
@@ -20800,33 +20808,41 @@ self.Lev=self.Lev+1
 end
 end
 function Nx.Tra:Add(typ,con1)
-local tda=self.Tra[con1]
+local tda=self.Tra and self.Tra[con1]
+if not tda then return end
 local Map=Nx.Map
 local Que=Nx.Que
 local hiF=UnitFactionGroup("player")=="Horde" and 1 or 2
-if 1 then
-local daS=Nx.GuD[typ][con1]
+local daS=Nx.GuD and Nx.GuD[typ] and Nx.GuD[typ][con1]
+if not daS or type(daS)~="string" then return end
 for n=1,#daS,2 do
-local npI=(strbyte(daS,n)-35)*221+(strbyte(daS,n+1)-35)
-local npS=Nx.NPCD[npI]
+local b1=strbyte(daS,n)
+local b2=strbyte(daS,n+1)
+if b1 and b2 then
+local npI=(b1-35)*221+(b2-35)
+local npS=Nx.NPCD and Nx.NPCD[npI]
+if npS and type(npS)=="string" and #npS>=2 then
 local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
 local des1,zon,loc=Que:UnO(oSt)
+if des1 and zon and loc and loc<=#oSt and strbyte(oSt,loc)==32 then
+local maI=Map.NTMI and Map.NTMI[zon]
+if maI then
 local nam,loN2=strsplit("!",des1)
-if strbyte(oSt,loc)==32 then
-local maI=Map.NTMI[zon]
 local x,y=Que:ULPO(oSt,loc+1)
+if x and y then
 local wx,wy=Map:GWP(maI,x,y)
 local nod={}
 nod.Nam=des1
-nod.LoN=NXlTaxiNames[loN2] or loN2
+nod.LoN=NXlTaxiNames and NXlTaxiNames[loN2] or loN2 or ""
 nod.MaI=maI
-nod.WX=wx
-nod.WY=wy
+nod.WX=wx or 0
+nod.WY=wy or 0
 tinsert(tda,nod)
-else
-assert(0)
+end
+end
+end
 end
 end
 end
