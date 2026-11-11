@@ -1148,7 +1148,8 @@ self.CFA={["Argent Crusade"]=1,["Argent Dawn"]=2,["Ashtongue Deathsworn"]=3,["Bl
 local qda={[3444]="4^97^626^386",[10447]="5^96^738^357",}
 for id,s in pairs(qda) do
 id=id<=100000 and id or id-100000
-local que=Nx.Que1[(id+7)*2-3]
+local que=Nx.Que1 and Nx.Que1[(id+7)*2-3]
+if que then
 local obI,zon,x,y=strsplit("^",s)
 obI=tonumber(obI)
 if not zon then
@@ -1165,6 +1166,7 @@ que[obI]=format("%c%s%c %c%c%c%c",#oDe+35,oDe,zon+35,floor(x/221)+35,x % 221+35,
 else
 local oDe,oZo,oLo=self:UnO(obj)
 que[obI]=format("%c%s%c%s",#oDe+35,oDe,zon+35,strsub(obj,oLo))
+end
 end
 end
 end
@@ -18693,6 +18695,7 @@ function Nx.Hel.Lic:OnC()
 Nx.Hel.Lic.Frm:Show()
 end
 function Nx.Com:UpI(map)
+if not map then return end
 if Nx.Tic % 20==1 then
 local meN={}
 self.MeN=meN
@@ -18703,7 +18706,7 @@ mem=MAX_RAID_MEMBERS
 unN="raid"
 end
 local maI=map.MaI
-local paI=self.PaI
+local paI=self.PaI or {}
 for n=1,mem do
 local uni=unN .. n
 local nam=UnitName(uni)
@@ -18726,7 +18729,8 @@ map.Lev=map.Lev+3
 end
 local opt=Nx:GGO()
 self.TrX=nil
-if map:GWZ(map.RMI).Cit then
+local gwz=map:GWZ(map.RMI)
+if gwz and gwz.Cit then
 if opt["MapShowOthersInCities"] then
 self:UPI(self.ZPI,map,"IconPlyrZ")
 end
