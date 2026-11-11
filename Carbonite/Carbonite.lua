@@ -7713,7 +7713,13 @@ self.CFI=fad
 self.CFO=fad1
 end
 function Nx.Que:ULPO(loS1,off1)
+if not loS1 then return 0,0 end
+off1=off1 or 1
 local x1,x2,y1,y2=strbyte(loS1,off1,3+off1)
+x1=x1 or 35
+x2=x2 or 35
+y1=y1 or 35
+y2=y2 or 35
 return((x1-35)*221+(x2-35))/100,((y1-35)*221+(y2-35))/100
 end
 function Nx.UEv:GPP()
@@ -22377,7 +22383,7 @@ Nx:STT(tip)
 end
 end
 function Nx.Map:MiU()
-if not self.MMO1 then
+if not self.MMO1 or not self.MMF then
 self:MDF1()
 return
 end
@@ -22385,7 +22391,7 @@ if self.GOp["MapMMMoveCapBars"] then
 local y=0
 for n=1,NUM_EXTENDED_UI_FRAMES do
 local f=getglobal("WorldStateCaptureBar" .. n)
-if f and f:IsShown() then
+if f and f:IsShown() and self.Win1 and self.Win1.Frm then
 f:SetPoint("TOPRIGHT",self.Win1.Frm,"BOTTOMRIGHT",0,y)
 y=y+f:GetHeight()
 end
@@ -22399,49 +22405,54 @@ self.MMS[n]=(8-n)*66.6666666666666/sc
 end
 end
 local mm=self.MMF
-local lOp=self.LOp
-local sca1=self.MMS
-local inf=self.MWI[self.RMI]
-if inf.Cit and not inf.MMO then
-sca1=self.MMSC
+if not mm then return end
+local lOp=self.LOp or {}
+local sca1=self.MMS or {}
+local inf=self.MWI and self.RMI and self.MWI[self.RMI]
+if inf and inf.Cit and not inf.MMO then
+sca1=self.MMSC or {}
 end
 local zoT1=0
-local zoo=mm:GetZoom(1)
-local doc=lOp.NXMMFull or self.GOp["MapMMDockAlways"]
-if self.Win1:ISM() and self.GOp["MapMMDockOnMax"] then
+local zoo=mm.GetZoom and mm:GetZoom(1) or 0
+local doc=lOp.NXMMFull or (self.GOp and self.GOp["MapMMDockAlways"])
+if self.Win1 and self.Win1.ISM and self.Win1:ISM() and self.GOp and self.GOp["MapMMDockOnMax"] then
 doc=true
 end
 if not doc and not self.InI
-and self.ScD>lOp.NXMMDockOnAtScale then
-mm:ClearAllPoints()
+and lOp.NXMMDockOnAtScale and self.ScD and self.ScD>lOp.NXMMDockOnAtScale then
+if mm.ClearAllPoints then mm:ClearAllPoints() end
 for n=1,6 do
 local sz=sca1[n]
-if self:CMMW(mm,self.PlX,self.PlY,sz,sz) then
+if sz and self:CMMW(mm,self.PlX,self.PlY,sz,sz) then
 zoT1=n
 break
 end
 end
 end
-local al=lOp.NXMMAlpha
+local al=lOp.NXMMAlpha or 1
 local ind1=IsIndoors()
 local inC=self.Ind1~=ind1
 self.Ind1=ind1
 if self.InI then
 al=1
 else
-if ind1 and self.GOp["MapMMDockIndoors"] then
+if ind1 and self.GOp and self.GOp["MapMMDockIndoors"] then
 zoT1=0
 end
-if inC and self.GOp["MapMMIndoorTogFullSize"] then
+if inC and self.GOp and self.GOp["MapMMIndoorTogFullSize"] then
 lOp.NXMMFull=false
-if not inf.Cit and ind1 then
+if inf and not inf.Cit and ind1 then
 lOp.NXMMFull=true
 end
+if self.MMMIF and self.MMMIF.SetChecked then
 self.MMMIF:SetChecked(lOp.NXMMFull)
+end
+if self.MMMIF and Nx.Men and Nx.Men.ChU then
 Nx.Men:ChU(self.MMMIF)
 end
+end
 if zoT1==0 then
-al=lOp.NXMMDockAlpha
+al=lOp.NXMMDockAlpha or 1
 end
 if IsAltKeyDown() then
 al=1
@@ -22457,25 +22468,25 @@ if self.MMAD==0 then
 self.MMAD=2
 end
 end
-if self.MMAD>0 then
+if self.MMAD and self.MMAD>0 then
 self.MMAD=self.MMAD-1
 self.MMZC=true
 end
-mm:SetAlpha(al)
+if mm.SetAlpha then mm:SetAlpha(al) end
 self:MDF1()
 if zoT1>0 then
 self:MUM("MapMMSquare")
 local abo=IsControlKeyDown()
-if self.GOp["MapMMAboveIcons"] then
+if self.GOp and self.GOp["MapMMAboveIcons"] then
 abo=not abo
 end
-local lvl=self.Lev
+local lvl=self.Lev or 1
 if abo then
 lvl=lvl+15
 end
-mm:SetFrameLevel(lvl)
+if mm.SetFrameLevel then mm:SetFrameLevel(lvl) end
 self:MUDF(lvl+1)
-self.Lev=self.Lev+2
+self.Lev=(self.Lev or 1)+2
 else
 local sc=self.MMFS
 self.MMFS=Nx.IBG and lOp.NXMMDockScaleBG or lOp.NXMMDockScale
