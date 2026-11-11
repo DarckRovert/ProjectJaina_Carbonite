@@ -16780,12 +16780,25 @@ function Nx.But:SetAlpha(a)
 self.Frm:SetAlpha(a)
 end
 function Nx.Que:Unp(inf)
+if not inf or type(inf)~="string" or #inf<2 then
+return "",0,0,0,0
+end
 local strbyte=strbyte
-local i=strbyte(inf,1)-35+1
+local b1=strbyte(inf,1)
+if not b1 then return "",0,0,0,0 end
+local i=(b1-35)+1
+if i<2 then i=2 end
+if i>#inf then i=#inf end
 local nam=strsub(inf,2,i)
 local sid,lvl,min5,n1,n2,n3=strbyte(inf,i+1,i+6)
-local neI=(n1-35)*48841+(n2-35)*221+n3-35
-return nam,sid-35,lvl-35,min5-35,neI
+sid=(sid or 35)-35
+lvl=(lvl or 35)-35
+min5=(min5 or 35)-35
+n1=(n1 or 35)-35
+n2=(n2 or 35)-35
+n3=(n3 or 35)-35
+local neI=n1*48841+n2*221+n3
+return nam,sid,lvl,min5,neI
 end
 function Nx.Que:RQL()
 local qcn=GetNumQuestLogEntries()
@@ -18007,15 +18020,16 @@ end
 end
 end
 function Nx.Que:UpI(map)
+if not map or not Nx.Que or not Nx.Que.Map or not Nx.Que.Wat or not Nx.Que.Wat.BSOM then return end
 Nx.Tim:PrS("Quest UpdateIcons")
 local Nx=Nx
 local Que=Nx.Que
 local Map=Nx.Map
 local qLC=Que.QLC1
-local ptS=4*map.ScD
-local nav=Que.Map.INS*16
+local ptS=4*(map.ScD or 1)
+local nav=(Que.Map.INS or 1)*16
 local sOM=Que.Wat.BSOM:GeP()
-local opt=self.GOp
+local opt=self.GOp or Nx:GGO() or {}
 local sWA=opt["QMapShowWatchAreas"]
 local trR,trG,trB,trA=Nx.U_23(opt["QMapWatchAreaTrackColor"])
 local hoR,hoG,hoB,hoA=Nx.U_23(opt["QMapWatchAreaHoverColor"])
@@ -25232,10 +25246,12 @@ end
 if stC2 then
 tiS=gsub(tiS,"|c%x%x%x%x%x%x%x%x","")
 end
+if not self.TTI then self.TTI = {} end
+if not self.TTC then self.TTC = {} end
 if tiS and #tiS>5 and #tiS<50 and not self.TTI[tiS] then
 tiS=self.TTC[tiS] or tiS
 local tSL=strlower(tiS)
-local cur1=self.CuQ
+local cur1=self.CuQ or {}
 for cur2,cur in ipairs(cur1) do
 if not cur.Got then
 local s1=strfind(cur.ObT,tiS,1,true)
