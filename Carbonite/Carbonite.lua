@@ -24277,16 +24277,28 @@ self.Top=floor(pos1)
 self:Upd()
 end
 function Nx.Que:UnL(loS1,isP)
+if not loS1 or type(loS1)~="string" or #loS1==0 then
+return 0,0,0,0
+end
 local off1=0
 if isP==nil then
-isP=strbyte(loS1)<=33
+local b1=strbyte(loS1) or 0
+isP=b1<=33
 off1=1
 end
 if isP then
 local x1,x2,y1,y2=strbyte(loS1,1+off1,4+off1)
+x1=x1 or 35
+x2=x2 or 35
+y1=y1 or 35
+y2=y2 or 35
 return((x1-35)*221+(x2-35))/100,((y1-35)*221+(y2-35))/100
 end
 local x,y,w,h=strbyte(loS1,1,4)
+x=x or 35
+y=y or 35
+w=w or 35
+h=h or 35
 return(x-35)*.5,(y-35)*.5,(w-35)*5.01,(h-35)*3.34
 end
 function Nx.Soc.Lis:Upd()
@@ -24795,8 +24807,8 @@ Nx.MITN[mid]=nam
 local emi=Nx.MNTI1[ena2]
 local ex,ey=Nx.Que:UnL(enP,true)
 if self.MWI[mid] then
-ex=ex+self.MWI[mid][2]
-ey=ey+self.MWI[mid][3]
+if type(self.MWI[mid][2])=="number" then ex=ex+self.MWI[mid][2] end
+if type(self.MWI[mid][3])=="number" then ey=ey+self.MWI[mid][3] end
 end
 local x,y=self:GWP(emi,ex,ey)
 local ewi=self.MWI[emi]
@@ -24913,13 +24925,14 @@ return id,x,y+dLv*100
 end
 function Nx:ReC()
 local ch=self.CuC
-local map=self.Map:GeM(1)
-if map.RMI then
-ch["Pos"]=format("%d^%f^%f",map.RMI,map.PRZX,map.PRZY)
+if not ch then return end
+local map=self.Map and self.Map:GeM(1)
+if map and map.RMI then
+ch["Pos"]=format("%d^%f^%f",map.RMI,map.PRZX or 0,map.PRZY or 0)
 end
 ch["Time"]=time()
 ch["Level"]=UnitLevel("player")
-if ch["Level"]>ch["LLevel"] then
+if ch["Level"]>(ch["LLevel"] or 0) then
 ch["LLevel"]=ch["Level"]
 ch["LvlTime"]=time()
 ch["LXP"]=UnitXP("player")
