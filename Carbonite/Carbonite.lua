@@ -7653,7 +7653,7 @@ end
 for n=0,100 do
 local loN1=n*loS+1
 local lo1=strsub(loc,loN1,loN1+loS-1)
-if lo1=="" then
+if not lo1 or lo1=="" or (loS==4 and #lo1 < 4) then
 break
 end
 local zx,zy,zw,zh
@@ -9784,7 +9784,7 @@ local Que=Nx.Que
 map.Tic=map.Tic+1
 map.EfS=this:GetEffectiveScale()
 map.Si1=gop["MapLineThick"]*.75/map.EfS
-Nx.Map:UpO(map.MaI3)
+if map.MaI3 then Nx.Map:UpO(map.MaI3) end
 local win3,win4=Nx.U_IMO(this)
 if not this:IsVisible() then
 win3=nil
@@ -11240,10 +11240,10 @@ prt(msg.." ? "..tostring(v))
 end
 end
 function Nx.Map:UpO(ind)
-local src=Nx.Map.Map1[ind]
-local dst=NxMapOpts.NXMaps[ind]
-assert(src)
-assert(dst)
+if not ind then return end
+local src=Nx.Map.Map1 and Nx.Map.Map1[ind]
+local dst=NxMapOpts and NxMapOpts.NXMaps and NxMapOpts.NXMaps[ind]
+if not src or not dst then return end
 dst.NXShowUnexplored=src.ShU
 dst.NXKillShow=src.KiS
 dst.NXBackgndAlphaFade=src.BAF
@@ -14877,7 +14877,7 @@ cnt=0
 for loN1=loc+1,loc+loC*4,4 do
 local x,y
 local lo1=strsub(str,loN1,loN1+3)
-assert(lo1~="")
+if not lo1 or lo1=="" or #lo1 < 4 then break end
 local x,y,w,h=self:ULR(lo1)
 w=w/1002*100
 h=h/668*100
@@ -17731,7 +17731,12 @@ end
 end
 end
 function Nx.Que:ULR(loS1)
+if not loS1 then return 0,0,0,0 end
 local x,y,w,h=strbyte(loS1,1,4)
+x=x or 35
+y=y or 35
+w=w or 35
+h=h or 35
 return(x-35)*.5,(y-35)*.5,(w-35)*5.01,(h-35)*3.34
 end
 function Nx.Pro:OnU(ela)
@@ -18189,7 +18194,7 @@ local sca=map:GWZS(maI)/10.02
 local cnt=floor((#obj-loc+1)/4)
 for loN1=loc,loc+cnt*4-1,4 do
 local lo1=strsub(obj,loN1,loN1+3)
-if lo1=="" then
+if not lo1 or lo1=="" or (loS==4 and #lo1 < 4) then
 break
 end
 local x,y,w,h=Que:ULR(lo1)
@@ -20091,7 +20096,7 @@ local loC=floor((#str-loc)/4)
 cnt=0
 for loN1=loc+1,loc+loC*4,4 do
 local lo1=strsub(str,loN1,loN1+3)
-assert(lo1~="")
+if not lo1 or lo1=="" or #lo1 < 4 then break end
 local x,y,w,h=Que:ULR(lo1)
 w=w/1002*100
 h=h/668*100
