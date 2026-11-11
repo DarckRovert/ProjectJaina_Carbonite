@@ -15382,20 +15382,23 @@ end
 Nx.prt("Imported %s nodes",imC)
 end
 function Nx.Map:CoU(str)
+if not str or type(str)~="string" or #str<3 then
+return 0,0,nil,0,0,nil,0,0,"",""
+end
 local fla,ta,tb,z1,x1a,x1b,y1a,y1b,z2,x2a,x2b,y2a,y2b,na1=strbyte(str,1,14)
-fla=fla-35
-local coT=(ta-35)*221+tb-35
-local mI1=self.NTMI[z1-35]
-local mI2=self.NTMI[z2-35]
-na1=na1-35
-local na11=na1==0 and "" or strsub(str,15,14+na1)
-local i=15+na1
+fla=(fla or 35)-35
+local coT=((ta or 35)-35)*221+(tb or 35)-35
+local mI1=self.NTMI[(z1 or 35)-35]
+local mI2=self.NTMI[(z2 or 35)-35]
+na1=(na1 or 35)-35
+local na11=(na1<=0) and "" or strsub(str,15,14+na1)
+local i=15+math.max(0,na1)
 local na2=strbyte(str,i)
-local na21=na2==0 and "" or strsub(str,i+1,i+na2)
-local x1=((x1a-35)*221+x1b-35)/100
-local y1=((y1a-35)*221+y1b-35)/100
-local x2=((x2a-35)*221+x2b-35)/100
-local y2=((y2a-35)*221+y2b-35)/100
+local na21=(not na2 or na2==0) and "" or strsub(str,i+1,i+na2)
+local x1=(((x1a or 35)-35)*221+(x1b or 35)-35)/100
+local y1=(((y1a or 35)-35)*221+(y1b or 35)-35)/100
+local x2=(((x2a or 35)-35)*221+(x2b or 35)-35)/100
+local y2=(((y2a or 35)-35)*221+(y2b or 35)-35)/100
 return fla,coT,mI1,x1,y1,mI2,x2,y2,na11,na21
 end
 function Nx.U_25(col1)
@@ -24860,23 +24863,23 @@ local con2={}
 win1.Con1=con2
 for _,str in ipairs(Nx.ZoC) do
 local fla,ta,tb,z1,x1a,x1b,y1a,y1b,z2,x2a,x2b,y2a,y2b,na1=strbyte(str,1,14)
-fla=fla-35
-local coT=(ta-35)*221+tb-35
-local mI1=self.NTMI[z1-35]
-local mI2=self.NTMI[z2-35]
+fla=(fla or 35)-35
+local coT=((ta or 35)-35)*221+(tb or 35)-35
+local mI1=self.NTMI[(z1 or 35)-35]
+local mI2=self.NTMI[(z2 or 35)-35]
 if coT==1 and mI1 and mI2 and (maI==mI1 or(maI==mI2 and bit.band(fla,1)==1)) then
 local co1=self:ITCZ(mI1)
 local co2=self:ITCZ(mI2)
 if co1==co2 then
-na1=na1-35
-local na11=na1==0 and "" or strsub(str,15,14+na1)
-local i=15+na1
+na1=(na1 or 35)-35
+local na11=(na1<=0) and "" or strsub(str,15,14+na1)
+local i=15+math.max(0,na1)
 local na2=strbyte(str,i)
-local na21=na2==0 and "" or strsub(str,i+1,i+na2)
-local x1=((x1a-35)*221+x1b-35)/100
-local y1=((y1a-35)*221+y1b-35)/100
-local x2=((x2a-35)*221+x2b-35)/100
-local y2=((y2a-35)*221+y2b-35)/100
+local na21=(not na2 or na2==0) and "" or strsub(str,i+1,i+na2)
+local x1=(((x1a or 35)-35)*221+(x1b or 35)-35)/100
+local y1=(((y1a or 35)-35)*221+(y1b or 35)-35)/100
+local x2=(((x2a or 35)-35)*221+(x2b or 35)-35)/100
+local y2=(((y2a or 35)-35)*221+(y2b or 35)-35)/100
 if maI==mI2 then
 mI1,mI2=mI2,mI1
 x1,y1,x2,y2=x2,y2,x1,y1
