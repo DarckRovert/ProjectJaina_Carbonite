@@ -999,10 +999,13 @@ return
 end
 local mod1=strbyte(daS)
 if mod1==32 then
-for n=2,#daS,6 do
-local fac2=strbyte(daS,n)-35
+for n=2,#daS-5,6 do
+local b1=strbyte(daS,n)
+local b2=strbyte(daS,n+1)
+if b1 and b2 then
+local fac2=b1-35
 if fac2~=hiF then
-local zon=strbyte(daS,n+1)-35
+local zon=b2-35
 local maI=Map.NTMI[zon]
 if not sMI1 or maI==sMI1 then
 local loc=strsub(daS,n+2,n+5)
@@ -1014,10 +1017,14 @@ map:SIT(ico,str)
 end
 end
 end
+end
 elseif mod1==33 then
 else
-for n=1,#daS,2 do
-local npI=(strbyte(daS,n)-35)*221+(strbyte(daS,n+1)-35)
+for n=1,#daS-1,2 do
+local b1=strbyte(daS,n)
+local b2=strbyte(daS,n+1)
+if b1 and b2 then
+local npI=(b1-35)*221+(b2-35)
 local npS=Nx.NPCD and Nx.NPCD[npI]
 if npS and type(npS)=="string" and #npS>=2 then
 local fac2=strbyte(npS,1)-35
