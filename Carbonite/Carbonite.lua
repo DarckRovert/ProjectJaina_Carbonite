@@ -1018,7 +1018,8 @@ elseif mod1==33 then
 else
 for n=1,#daS,2 do
 local npI=(strbyte(daS,n)-35)*221+(strbyte(daS,n+1)-35)
-local npS=Nx.NPCD[npI]
+local npS=Nx.NPCD and Nx.NPCD[npI]
+if npS and type(npS)=="string" and #npS>=2 then
 local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
@@ -1029,7 +1030,7 @@ if not maI then
 local nam,miL,maL1,fac1,con1=strsplit("!",Nx.Zon1[zon])
 if tonumber(fac1)~=3 then
 Nx.prt("Guide icon err %s %d",des1,zon)
-assert(maI)
+-- assert(maI) -- L9 Guard: prevent fatal crash if zone mapping is missing
 end
 elseif not sMI1 or maI==sMI1 then
 local maN=Nx.MITN[maI]
@@ -1050,6 +1051,7 @@ local wx,wy=map:GWP(maI,x,y)
 local ico=map:AIP(icT,wx,wy,nil,tx)
 local str=format("%s\n%s\n%s %.1f %.1f",nam,des1,maN,x,y)
 map:SIT(ico,str)
+end
 end
 end
 end
@@ -12950,7 +12952,8 @@ for con1=1,Map.CoC do
 local daS=Nx.GuD["Flight Master"][con1]
 for n=1,#daS,2 do
 local npI=(strbyte(daS,n)-35)*221+(strbyte(daS,n+1)-35)
-local npS=Nx.NPCD[npI]
+local npS=Nx.NPCD and Nx.NPCD[npI]
+if npS and type(npS)=="string" and #npS>=2 then
 local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
@@ -12964,7 +12967,8 @@ local x,y=Que:ULPO(oSt,loc+1)
 local wx,wy=Map:GWP(maI,x,y)
 return nam,wx,wy
 else
-assert(0)
+-- assert(0)
+end
 end
 end
 end
@@ -13169,16 +13173,22 @@ local con4=Nx.FlC
 for n=1,#con4,6 do
 local a1,a2,b1,b2,c1,c2=strbyte(con4,n,n+5)
 local i=(a1-35)*221+a2-35
-local oSt=strsub(Nx.NPCD[i],2)
+local npS1=Nx.NPCD and Nx.NPCD[i]
+if npS1 and type(npS1)=="string" and #npS1>=2 then
+local oSt=strsub(npS1,2)
 local des1,zon,loc=Que:UnO(oSt)
 local nam=strsplit("!",des1)
 if nam==sNPCN then
 local i=(b1-35)*221+b2-35
-local oSt=strsub(Nx.NPCD[i],2)
+local npS2=Nx.NPCD and Nx.NPCD[i]
+if npS2 and type(npS2)=="string" and #npS2>=2 then
+local oSt=strsub(npS2,2)
 local des1,zon,loc=Que:UnO(oSt)
 local nam=strsplit("!",des1)
 if nam==dNPCN then
 return((c1-35)*221+c2-35)/10
+end
+end
 end
 end
 end
@@ -14071,7 +14081,8 @@ elseif strbyte(daS)==33 then
 else
 for n=1,#daS,2 do
 local npI=(strbyte(daS,n)-35)*221+(strbyte(daS,n+1)-35)
-local npS=Nx.NPCD[npI]
+local npS=Nx.NPCD and Nx.NPCD[npI]
+if npS and type(npS)=="string" and #npS>=2 then
 local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
@@ -14102,6 +14113,7 @@ clD=dis
 clo1=npI
 cMI1=maI
 clX,clY=wx,wy
+end
 end
 end
 end
