@@ -1024,33 +1024,45 @@ local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
 local des1,zon,loc=Que:UnO(oSt)
+if des1 then
 des1=gsub(des1,"!",", ")
-local maI=Map.NTMI[zon]
+local maI=zon and Map.NTMI and Map.NTMI[zon]
 if not maI then
-local nam,miL,maL1,fac1,con1=strsplit("!",Nx.Zon1[zon])
+local zData=zon and Nx.Zon1 and Nx.Zon1[zon]
+if zData then
+local _,miL,maL1,fac1,con1=strsplit("!",zData)
 if tonumber(fac1)~=3 then
 Nx.prt("Guide icon err %s %d",des1,zon)
--- assert(maI) -- L9 Guard: prevent fatal crash if zone mapping is missing
+end
 end
 elseif not sMI1 or maI==sMI1 then
-local maN=Nx.MITN[maI]
-if strbyte(oSt,loc)==32 then
+local maN=Nx.MITN and Nx.MITN[maI] or ""
+if loc and loc<=#oSt and strbyte(oSt,loc)==32 then
 loc=loc+1
 local cnt=floor((#oSt-loc+1)/4)
 for loN1=loc,loc+cnt*4-1,4 do
 local lo1=strsub(oSt,loN1,loN1+3)
 local x,y=Que:UnL(lo1,true)
+if x and y then
 local wx,wy=map:GWP(maI,x,y)
+if wx and wy then
 local ico=map:AIP(icT,wx,wy,nil,tx)
-local str=format("%s\n%s\n%s %.1f %.1f",nam,des1,maN,x,y)
+local str=format("%s\n%s\n%s %.1f %.1f",nam or "",des1,maN,x,y)
 map:SIT(ico,str)
 end
+end
+end
 else
-local _,zon,x,y=Que:GOP(nil,oSt)
+local _,_,x,y=Que:GOP(nil,oSt)
+if x and y then
 local wx,wy=map:GWP(maI,x,y)
+if wx and wy then
 local ico=map:AIP(icT,wx,wy,nil,tx)
-local str=format("%s\n%s\n%s %.1f %.1f",nam,des1,maN,x,y)
+local str=format("%s\n%s\n%s %.1f %.1f",nam or "",des1,maN,x,y)
 map:SIT(ico,str)
+end
+end
+end
 end
 end
 end
@@ -8832,7 +8844,11 @@ if con3 then
 lis:ItS(5,are)
 else
 local pDa=pal[pNa]
+if pDa and pDa[fNa] then
 lev,cla=strsplit("~",pDa[fNa])
+else
+lev,cla="",""
+end
 end
 if lev~="" then
 lis:ItS(3,format("%s",lev))
@@ -12835,7 +12851,8 @@ end
 end
 f.T="%In" .. nxi
 f.IMI=maI
-local owN=strsplit("!",Nx.Zon1[tonumber(own)])
+local zData=tonumber(own) and Nx.Zon1 and Nx.Zon1[tonumber(own)]
+local owN=zData and strsplit("!",zData) or "Unknown"
 local x,y=Nx.Que:ULPO(pos1,1)
 f.InT2=format("%s |cffe0e040Lvl %s\n|r%s (%.1f %.1f)",f.Nam,f.Co21,owN,x,y)
 f.Tx=par.Tx
@@ -12958,16 +12975,20 @@ local fac2=strbyte(npS,1)-35
 if fac2~=hiF then
 local oSt=strsub(npS,2)
 local des1,zon,loc=Que:UnO(oSt)
+if des1 then
 local nam,cam=strsplit("!",des1)
-cam=NXlTaxiNames[cam] or cam
+cam=NXlTaxiNames and NXlTaxiNames[cam] or cam
 if cam==caN then
-if strbyte(oSt,loc)==32 then
-local maI=Map.NTMI[zon]
+if loc and loc<=#oSt and strbyte(oSt,loc)==32 then
+local maI=zon and Map.NTMI and Map.NTMI[zon]
+if maI then
 local x,y=Que:ULPO(oSt,loc+1)
+if x and y then
 local wx,wy=Map:GWP(maI,x,y)
 return nam,wx,wy
-else
--- assert(0)
+end
+end
+end
 end
 end
 end
@@ -13177,15 +13198,15 @@ local npS1=Nx.NPCD and Nx.NPCD[i]
 if npS1 and type(npS1)=="string" and #npS1>=2 then
 local oSt=strsub(npS1,2)
 local des1,zon,loc=Que:UnO(oSt)
-local nam=strsplit("!",des1)
-if nam==sNPCN then
+local nam=des1 and strsplit("!",des1)
+if nam and nam==sNPCN then
 local i=(b1-35)*221+b2-35
 local npS2=Nx.NPCD and Nx.NPCD[i]
 if npS2 and type(npS2)=="string" and #npS2>=2 then
 local oSt=strsub(npS2,2)
 local des1,zon,loc=Que:UnO(oSt)
-local nam=strsplit("!",des1)
-if nam==dNPCN then
+local nam=des1 and strsplit("!",des1)
+if nam and nam==dNPCN then
 return((c1-35)*221+c2-35)/10
 end
 end
@@ -24722,8 +24743,9 @@ oy=oy/cnt
 return nam,zon,ox,oy
 end
 function Nx.Map:GMND(maI)
-local nxz=Nx.MITN1[maI] or 0
-local _,miL,maL1,fac1=strsplit("!",Nx.Zon1[nxz])
+local nxz=Nx.MITN1 and Nx.MITN1[maI] or 0
+local zData=Nx.Zon1 and (Nx.Zon1[nxz] or Nx.Zon1[0]) or "Unknown Zone!0!0!4!6!!"
+local _,miL,maL1,fac1=strsplit("!",zData)
 miL=tonumber(miL)
 fac1=tonumber(fac1)
 local inS=format("%d-%d",miL,maL1)
