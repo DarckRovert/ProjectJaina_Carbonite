@@ -1077,6 +1077,7 @@ end
 end
 end
 end
+end
 function Nx.Inf:OnT()
 local var1=self.Var
 self.NeD=false
