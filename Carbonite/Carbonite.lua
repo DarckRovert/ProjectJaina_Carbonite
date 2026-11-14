@@ -576,7 +576,7 @@ if fol.Co2 then
 mI1,x1,y1,na11=mI2,x2,y2,na21
 end
 local wx,wy=Map:GWP(mI1,x1,y1)
-local ico=map:AIP("!POI",wx,wy,nil,"Interface\\Icons\\" .. fol.Tx)
+local ico=map:AIP("!POI",wx,wy,nil,"Interface\\Icons\\" .. (fol.Tx or "Ability_Townwatch"))
 map:SIT(ico,format("%s\n%s %.1f %.1f",na11,Nx.MITN[mI1],x1,y1))
 end
 end
@@ -6707,7 +6707,7 @@ co2=co1
 end
 for shT,fol in pairs(self.ShF) do
 local mod1=strbyte(shT)
-local tx="Interface\\Icons\\" .. fol.Tx
+local tx="Interface\\Icons\\" .. (fol.Tx or "INV_Misc_QuestionMark")
 if mod1==36 then
 local type=strsub(shT,2,2)
 local loT=type=="H" and "Herb" or type=="M" and "Mine"
@@ -12731,7 +12731,7 @@ end
 end
 if fol.Nam=="Travel" then
 local txT={["Boat"]="Spell_Shadow_DemonBreath",["Portal"]="INV_Misc_QuestionMark",["Tram"]="INV_Misc_MissileSmall_White",["Zeppelin"]="INV_Misc_MissileSmall_Red",}
-local poT1={["Blasted Lands"]="Achievement_Zone_BlastedLands_01",["Darnassus"]="Spell_Arcane_TeleportDarnassus",["Exodar"]="Spell_Arcane_TeleportExodar",["Hellfire Peninsula"]="Achievement_Zone_HellfirePeninsula_01",["Ironforge"]="Spell_Arcane_TeleportIronForge",["Isle of Quel'Danas"]="Achievement_Zone_IsleOfQuelDanas",["Lake Wintergrasp"]="Ability_WIntergrasp_rank1",["Orgrimmar"]="Spell_Arcane_TeleportOrgrimmar",["Shattrath"]="Spell_Arcane_TeleportShattrath",["Silvermoon"]="Spell_Arcane_TeleportSilvermoon",["Stormwind"]="Spell_Arcane_TeleportStormWind",["Thunder Bluff"]="Spell_Arcane_TeleportThunderBluff",["Undercity"]="Spell_Arcane_TeleportUnderCity",}
+local poT1={["Blasted Lands"]="Achievement_Zone_BlastedLands_01",["Dalaran"]="Spell_Arcane_TeleportDalaran",["Darnassus"]="Spell_Arcane_TeleportDarnassus",["Exodar"]="Spell_Arcane_TeleportExodar",["Hellfire Peninsula"]="Achievement_Zone_HellfirePeninsula_01",["Ironforge"]="Spell_Arcane_TeleportIronForge",["Isle of Quel'Danas"]="Achievement_Zone_IsleOfQuelDanas",["Lake Wintergrasp"]="Ability_WIntergrasp_rank1",["Orgrimmar"]="Spell_Arcane_TeleportOrgrimmar",["Shattrath"]="Spell_Arcane_TeleportShattrath",["Silvermoon"]="Spell_Arcane_TeleportSilvermoon",["Stormwind"]="Spell_Arcane_TeleportStormWind",["Thunder Bluff"]="Spell_Arcane_TeleportThunderBluff",["Undercity"]="Spell_Arcane_TeleportUnderCity",}
 for i,str in ipairs(Nx.ZoC) do
 local fla,coT,mI1,x1,y1,mI2,x2,y2,na11,na21=Nx.Map:CoU(str)
 if coT~=1 then
@@ -12746,7 +12746,7 @@ f.MaI=mI1
 f.CoI1=i
 f.T="*" .. i .. faS
 local typ,loN2=strmatch(na11,"(%S+) to (.+)")
-f.Tx=typ=="Portal" and poT1[loN2] or txT[typ]
+f.Tx=(typ=="Portal" and (poT1[loN2] or "Spell_Arcane_TeleportDarnassus")) or (typ and txT[typ]) or "Ability_Townwatch"
 end
 if #na21>0 and bit.band(fla,1)~=0 then
 local f={}
@@ -12758,7 +12758,7 @@ f.CoI1=i
 f.Co2=true
 f.T="*b" .. i .. faS
 local typ,loN2=strmatch(na21,"(%S+) to (.+)")
-f.Tx=typ=="Portal" and poT1[loN2] or txT[typ]
+f.Tx=(typ=="Portal" and (poT1[loN2] or "Spell_Arcane_TeleportDarnassus")) or (typ and txT[typ]) or "Ability_Townwatch"
 end
 end
 end
