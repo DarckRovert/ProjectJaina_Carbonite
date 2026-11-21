@@ -6664,7 +6664,14 @@ local s=format("Overwrite all character settings and reload?",sna)
 Nx:ShM(s,"Export",Nx.War.ExD,"Cancel")
 end
 function Nx.Que:UnN1(inf)
-local i=strbyte(inf,1)-35+1
+if not inf or type(inf)~="string" or #inf<2 then
+return ""
+end
+local b1=strbyte(inf,1)
+if not b1 then return "" end
+local i=(b1-35)+1
+if i<2 then i=2 end
+if i>#inf then i=#inf end
 return strsub(inf,2,i)
 end
 function Nx.Inf:ReF()
@@ -11349,14 +11356,17 @@ end
 function Nx.Que.Lis:ChS(maI,ind)
 local NTMI=Nx.Map.NTMI
 local Que=Nx.Que
+if not Que or not Que.Sor then return end
 while true do
 local qId=Que.Sor[ind]
+if not qId then return end
 if Que:ChS(maI,qId) then
 return true
 end
-local que=Que.ITQ[qId]
+local que=Que.ITQ and Que.ITQ[qId]
+if not que or not que[1] then return end
 local next=Que:UnN(que[1])
-if next==0 then
+if not next or next==0 then
 return
 end
 ind=ind+1
@@ -12281,9 +12291,19 @@ self.Str[n]:Hide()
 end
 end
 function Nx.Que:UnN(inf)
+if not inf or type(inf)~="string" or #inf<2 then
+return 0
+end
 local sb=strbyte
-local i=sb(inf,1)-35+1
-return(sb(inf,i+4)-35)*48841+(sb(inf,i+5)-35)*221+sb(inf,i+6)-35
+local b1=sb(inf,1)
+if not b1 then return 0 end
+local i=(b1-35)+1
+if i<2 then i=2 end
+local n1,n2,n3=sb(inf,i+4,i+6)
+n1=(n1 or 35)-35
+n2=(n2 or 35)-35
+n3=(n3 or 35)-35
+return n1*48841+n2*221+n3
 end
 function Nx.Map:BGM_OS(ite)
 local id,x,y,str=strsplit("~",self.BGM)
