@@ -22416,18 +22416,21 @@ if self.RQE~=GetNumQuestLogEntries() then
 return
 end
 local opt=self.GOp
-if not opt["QBroadcastQChanges"] then
+if not opt or not opt["QBroadcastQChanges"] then
 return
 end
 local cur1=self.CuQ
+if not cur1 then return end
 for _,cur in ipairs(cur1) do
-if cur.QI>0 then
-for n=1,cur.LBC do
+if cur and cur.QI and cur.QI>0 then
+local lbc=cur.LBC or 0
+for n=1,lbc do
 local ski
 local des1,_,don=GetQuestLogLeaderBoard(n,cur.QI)
 if des1 then
 if not don then
-local num=opt["QBroadcastQChangesNum"]
+local num=tonumber(opt["QBroadcastQChangesNum"]) or 1
+if num<=0 then num=1 end
 local olC1=tonumber(strmatch(cur[n] or "",": (%d+)/"))
 local neC=tonumber(strmatch(des1,": (%d+)/"))
 if olC1 and neC then
